@@ -1,1 +1,0 @@
-ACHamRadio = ACHamRadio or {}
