@@ -1,0 +1,56 @@
+module ACHamRadio
+{
+    item ACHamRadioPremium
+    {
+        DisplayName = AC Premium Technologies Ham Radio,
+        Type = Radio,
+        Icon = HamRadio,
+        Weight = 2.5,
+
+        TwoWay = TRUE,
+        TransmitRange = 30000,
+        MicRange = 5,
+        MinChannelRange = 200,
+        MaxChannelRange = 100000,
+
+        RequiresPower = TRUE,
+        IsPortable = FALSE,
+        UseDelta = 0
+    }
+
+    item ACHamRadioMilitary
+    {
+        DisplayName = AC US ARMY COMM. Ham Radio,
+        Type = Radio,
+        Icon = HamRadio,
+        Weight = 2.8,
+
+        TwoWay = TRUE,
+        TransmitRange = 30000,
+        MicRange = 5,
+        MinChannelRange = 200,
+        MaxChannelRange = 100000,
+
+        RequiresPower = TRUE,
+        IsPortable = FALSE,
+        UseDelta = 0
+    }
+
+    item ACHamRadioMakeshift
+    {
+        DisplayName = AC Makeshift Ham Radio,
+        Type = Radio,
+        Icon = HamRadio,
+        Weight = 2.2,
+
+        TwoWay = TRUE,
+        TransmitRange = 25000,
+        MicRange = 4,
+        MinChannelRange = 200,
+        MaxChannelRange = 100000,
+
+        RequiresPower = TRUE,
+        IsPortable = FALSE,
+        UseDelta = 0
+    }
+}

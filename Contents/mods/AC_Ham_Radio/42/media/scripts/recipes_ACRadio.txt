@@ -1,0 +1,38 @@
+module ACHamRadio
+{
+    recipe Convert Premium Ham Radio to AC
+    {
+        keep Radio.HamRadio,
+        ElectronicsScrap=1,
+        Screwdriver,
+
+        Result:ACHamRadio.ACHamRadioPremium,
+        Time:120.0,
+        SkillRequired:Electricity=0,
+        OnCreate:ACHamRadio_OnCreate
+    }
+
+    recipe Convert Military Ham Radio to AC
+    {
+        keep Radio.HamRadioMilitary,
+        ElectronicsScrap=1,
+        Screwdriver,
+
+        Result:ACHamRadio.ACHamRadioMilitary,
+        Time:120.0,
+        SkillRequired:Electricity=0,
+        OnCreate:ACHamRadio_OnCreate
+    }
+
+    recipe Convert Makeshift Ham Radio to AC
+    {
+        keep Radio.HamRadioMakeshift,
+        ElectronicsScrap=1,
+        Screwdriver,
+
+        Result:ACHamRadio.ACHamRadioMakeshift,
+        Time:120.0,
+        SkillRequired:Electricity=0,
+        OnCreate:ACHamRadio_OnCreate
+    }
+}
