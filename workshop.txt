@@ -1,0 +1,6 @@
+version=1
+id=3651462453
+title=AC Radios
+description=An attempt to create a Radio that uses AC Power (Generator/Grid Power) to avoid Battery use
+tags=Build 42;WIP
+visibility=private

@@ -48,21 +48,10 @@ This implementation adds proper AC power checking to the AC Ham Radio mod, ensur
 
 ### For Build 42.13.2+
 
-**Replace these files:**
+**IMPORTANT: File Structure**
 
-1. **Server Logic:**
-   - Replace: `Contents/mods/AC_Ham_Radio/42/media/lua/server/server.lua`
-   - With: The new `server.lua` containing PowerMonitor system
+Project Zomboid automatically loads Lua files from specific directories. Your mod structure must be:
 
-2. **Client Logic:**
-   - Replace: `Contents/mods/AC_Ham_Radio/42/media/lua/client/client.lua`
-   - With: The new `client.lua` with enhanced UI and validation
-
-3. **Shared Code:**
-   - Replace: `Contents/mods/AC_Ham_Radio/42/media/lua/shared/shared.lua`
-   - With: The new `shared.lua` with utility functions
-
-### File Structure
 ```
 Contents/mods/AC_Ham_Radio/
 └── 42/
@@ -71,15 +60,40 @@ Contents/mods/AC_Ham_Radio/
     └── media/
         ├── lua/
         │   ├── client/
-        │   │   └── client.lua          ← Replace
+        │   │   └── client.lua          ← Client-side code (UI, visual)
         │   ├── server/
-        │   │   └── server.lua          ← Replace
+        │   │   └── server.lua          ← Server-side code (power logic)
         │   └── shared/
-        │       └── shared.lua          ← Replace
+        │       └── shared.lua          ← Shared utilities
         └── scripts/
-            ├── items_ACRadio.txt
-            └── recipes_ACRadio.txt
+            ├── items_ACRadio.txt       ← Item definitions
+            └── recipes_ACRadio.txt     ← Crafting recipes
 ```
+
+**How PZ Loads These Files:**
+- `media/lua/shared/` - Loads on BOTH client and server
+- `media/lua/server/` - Loads ONLY on server (including single-player host)
+- `media/lua/client/` - Loads ONLY on client side
+- Files are auto-loaded, you don't need to `require` them explicitly
+- Global tables (like `ACHamRadio`) are shared across these files
+
+**Replace these files with the new versions:**
+
+1. **Server Logic:** `media/lua/server/server.lua`
+2. **Client Logic:** `media/lua/client/client.lua`
+3. **Shared Code:** `media/lua/shared/shared.lua`
+
+### Common Installation Mistakes
+
+❌ **Don't do this:**
+- Don't use `require "shared/shared"` (PZ auto-loads shared files)
+- Don't use `require "Radio/ISRadioDevicePanel"` (already loaded by game)
+- Don't put files in the wrong directories
+
+✅ **Do this:**
+- Place files in correct `client/`, `server/`, `shared/` directories
+- Use global table checks: `if not ACHamRadio then ... end`
+- Let PZ auto-load your files
 
 ## Key Fixes Applied
 
@@ -143,6 +157,16 @@ if not isServer() then return end  -- Works in all contexts
 4. Radio only functions if electricity is present
 
 ## Troubleshooting
+
+**Error: "require('shared/shared') failed"**
+- This means you're using old code that incorrectly tries to require files
+- Solution: Use the updated files that don't use explicit `require` for shared code
+- PZ auto-loads files from `media/lua/shared/`, `client/`, and `server/`
+
+**Error: "attempted index: render of non-table: null"**
+- This happens when trying to hook ISRadioDevicePanel before it's loaded
+- Solution: The updated client.lua checks if ISRadioDevicePanel exists before using it
+- Make sure you're using the corrected client.lua file
 
 **Radio won't turn on:**
 - Check generator has fuel and is running

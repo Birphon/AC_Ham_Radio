@@ -2,4 +2,3 @@ name=AC Ham Radio
 id=ACHamRadio
 description=Adds generator-powered AC Ham Radios with AC power UI.
 poster=poster.png
-require=base

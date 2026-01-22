@@ -1,9 +1,22 @@
-require "shared/shared"
-require "Radio/ISRadioDevicePanel"
+-- shared.lua should be auto-loaded by PZ, but we'll make sure ACHamRadio table exists
+if not ACHamRadio then
+    ACHamRadio = {}
+end
+
+-- Check if ISRadioDevicePanel exists (it should be loaded by the game)
+if not ISRadioDevicePanel then
+    print("ACHamRadio: ERROR - ISRadioDevicePanel not found!")
+    return
+end
 
 -- Store original functions
 local originalRender = ISRadioDevicePanel.render
 local originalOnPowerButton = ISRadioDevicePanel.onPowerButton
+
+if not originalRender or not originalOnPowerButton then
+    print("ACHamRadio: ERROR - Could not hook into ISRadioDevicePanel functions!")
+    return
+end
 
 -- Enhanced render with AC power status display
 function ISRadioDevicePanel:render()

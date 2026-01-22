@@ -1,6 +1,11 @@
 if not isServer() then return end
 
-require "shared/shared"
+-- shared.lua should be auto-loaded by PZ from media/lua/shared/
+-- Make sure ACHamRadio table exists
+if not ACHamRadio then
+    print("ACHamRadio: ERROR - shared.lua not loaded!")
+    return
+end
 
 -- Recipe callback to convert regular ham radios to AC versions
 function ACHamRadio_OnCreate(items, result, player)
